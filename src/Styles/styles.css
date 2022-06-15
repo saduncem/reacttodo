@@ -1,0 +1,15 @@
+.App {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+.container {
+    width: 600px;
+    height: 300px;
+    padding: 20px;
+    background-color: skyblue;
+    position: relative;
+    margin: auto;
+}

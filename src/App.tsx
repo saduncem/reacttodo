@@ -1,26 +1,47 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState,useEffect } from "react";
+import axios from "axios";
+import { CountryType } from "./types";
+import {Link } from "react-router-dom";
+const App = () => {
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    const [countries, setCountries] = useState<CountryType[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+
+    const GetCountries = async () => {
+
+           try {
+               const { data } = await axios.get<CountryType[]>("https://restcountries.com/v2/all");
+               setCountries(data);
+               console.log(data);
+               
+           } catch (error) {
+            console.log("finally");
+           }
+           finally {
+                setLoading(false);
+                console.log("finally");
+           }
+    }
+    useEffect(() =>
+     {    
+         GetCountries();
+     },[]);
+    
+    return (
+      <div>
+       <nav>
+           <ul>
+             <li>
+               <Link to="/">Home</Link>
+             </li>
+            <li>
+              <Link to="/products">First Product</Link>
+            </li>
+          </ul>
+         </nav>
+       
+      </div>
+    );
+};
 
 export default App;
